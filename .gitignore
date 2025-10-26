@@ -1,0 +1,45 @@
+# Virtual Environment
+.env/
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# API Keys and Secrets
+*.key
+.api_key*
+.env
+*.pem
+secrets/
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
