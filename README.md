@@ -1,104 +1,87 @@
-# Unified LLM Chat Interface
+# Simple LLM Chat CLI (`slcc`)
 
-A simple CLI program to chat with multiple LLM providers (e.g., ChatGPT and
-Claude) through a unified interface.
+A simple CLI program, `slcc`, to chat with multiple LLM providers 
+(e.g., ChatGPT and Claude) through a unified interface.
 
 ## Features
 
-- Unified interface for multiple LLM providers
 - Support for ChatGPT (OpenAI) and Claude (Anthropic)
 - Conversation history maintained throughout the session
-- Spinner animation while waiting for responses
-- Easy model selection
 
 ## Prerequisites
 
-### For ChatGPT
-
-1. Have an OpenAI API key. Refer to [OpenAI website](https://platform.openai.com/docs/overview) for more info.
-2. Add balance to your account.
-3. Store your API key to a safe place, for example, `~/.api_key_openai_1`.
-4. Add this line to your `~/.zshrc` or `~/.bashrc`:
+Have an API key for ChatGPT or Claude and that the keys are exported 
+as environment variables `OPENAI_API_KEY` or `ANTHROPIC_API_KEYi`. 
+For example, you can have 
+`~/.api_key_openai_1`, and have below lines in your `~/.zshrc` or `~/.bashrc`.
 
 ```bash
+# chatgpt
 export OPENAI_API_KEY="$(cat $HOME/.api_key_openai_1 2>/dev/null || echo '')"
-```
 
-### For Claude
-
-1. Have an Anthropic API key. Refer to [Anthropic website](https://www.anthropic.com) for more info.
-2. Add balance to your account.
-3. Store your API key to a safe place, for example, `~/.api_key_anthropic_1`.
-4. Add this line to your `~/.zshrc` or `~/.bashrc`:
-
-```bash
+# claude
 export ANTHROPIC_API_KEY="$(cat $HOME/.api_key_anthropic_1 2>/dev/null || echo '')"
 ```
 
-5. Remember to source the API keys: `source ~/.zshrc` or `source ~/.bashrc`
-
 ## Installation
 
-1. Clone this repo to your computer, then `cd` into your local repo:
+### Install with pipx
+
+1. Install `pipx` if you don't have it. For more info, refer 
+to [its documentation](https://pipx.pypa.io/stable/)
+
+2. Install directly from GitHub:
 ```bash
-git clone <repo-url>
-cd <local-repo>
+pipx install git+https://github.com/quietlyecho/simple-llm-chat-cli.git
 ```
 
-2. Create a Python virtual environment for this repo and activate it:
+3. The `slcc` command is now available globally:
 ```bash
-python3 -m venv .env
-source .env/bin/activate  # On Windows: .env\Scripts\activate
+slcc --provider claude
 ```
 
-3. Install dependencies:
+### Updating and Uninstalling
+
+To update:
 ```bash
-pip install -r requirements.txt
+pipx upgrade slcc
 ```
 
-4. Make the chat program executable:
+To uninstall:
 ```bash
-chmod u+x chat.py
+pipx uninstall slcc
 ```
 
 ## Usage
 
-### Basic Usage
-
-Chat with ChatGPT (default model: gpt-5):
 ```bash
-./chat.py --provider chatgpt
+slcc -p claude
+# or below
+slcc --provider claude
 ```
-
-Chat with Claude (default model: claude-sonnet-4-5):
-```bash
-./chat.py --provider claude
-```
-
-### Advanced Usage
 
 Specify a custom model:
 ```bash
-./chat.py --provider chatgpt --model gpt-4o
-./chat.py --provider claude --model claude-sonnet-4
+slcc --provider chatgpt --model gpt-4o
+slcc --provider claude --model claude-sonnet-4
 ```
 
 Adjust maximum tokens:
 ```bash
-./chat.py --provider chatgpt --max-tokens 2048
+slcc --provider chatgpt --max-tokens 2048
 ```
 
 Adjust temperature (randomness):
 ```bash
-./chat.py --provider chatgpt --temperature 0.7
-./chat.py --provider claude --temperature 0.2  # More deterministic
-./chat.py --provider chatgpt --temperature 1.0  # More creative
+slcc --provider chatgpt --temperature 0.7
+slcc --provider claude --temperature 0.2  # More deterministic
+slcc --provider chatgpt --temperature 1.0  # More creative
 ```
 
 ### Command-Line Options
 
 ```bash
-./chat.py -h
+slcc -h
 ```
 
 Options:

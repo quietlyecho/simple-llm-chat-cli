@@ -12,6 +12,12 @@ __pycache__/
 *.so
 .Python
 
+# Build/Distribution
+build/
+dist/
+*.egg-info/
+*.egg
+
 # IDE
 .vscode/
 *.swp

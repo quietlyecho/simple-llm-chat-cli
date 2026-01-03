@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slcc" # stands for "simple llm chat cli"
+version = "0.1.0"
+description = "A unified CLI interface for chatting with multiple LLM providers (ChatGPT, Claude)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "quietlyecho"}
+]
+keywords = ["cli", "llm", "chatgpt", "claude", "openai", "anthropic", "chat"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Environment :: Console",
+    "Topic :: Communications :: Chat",
+]
+
+dependencies = [
+    "anthropic>=0.40.0",
+    "openai>=1.88.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.12.0",
+]
+
+[project.scripts]
+slcc = "src.chat:main"
+
+[project.urls]
+Homepage = "https://github.com/quietlyecho/simple-llm-chat-cli"
+Repository = "https://github.com/quietlyecho/simple-llm-chat-cli"
+Issues = "https://github.com/quietlyecho/simple-llm-chat-cli/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.setuptools.package-data]
+src = ["py.typed"]
