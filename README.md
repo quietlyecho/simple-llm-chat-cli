@@ -12,16 +12,6 @@ A simple CLI program, `slcc`, to chat with multiple LLM providers
 
 Have an API key for ChatGPT or Claude and that the keys are exported 
 as environment variables `OPENAI_API_KEY` or `ANTHROPIC_API_KEYi`. 
-For example, you can have 
-`~/.api_key_openai_1`, and have below lines in your `~/.zshrc` or `~/.bashrc`.
-
-```bash
-# chatgpt
-export OPENAI_API_KEY="$(cat $HOME/.api_key_openai_1 2>/dev/null || echo '')"
-
-# claude
-export ANTHROPIC_API_KEY="$(cat $HOME/.api_key_anthropic_1 2>/dev/null || echo '')"
-```
 
 ## Installation
 
@@ -38,18 +28,6 @@ pipx install git+https://github.com/quietlyecho/simple-llm-chat-cli.git
 3. The `slcc` command is now available globally:
 ```bash
 slcc --provider claude
-```
-
-### Updating and Uninstalling
-
-To update:
-```bash
-pipx upgrade slcc
-```
-
-To uninstall:
-```bash
-pipx uninstall slcc
 ```
 
 ## Usage
@@ -74,8 +52,8 @@ slcc --provider chatgpt --max-tokens 2048
 Adjust temperature (randomness):
 ```bash
 slcc --provider chatgpt --temperature 0.7
-slcc --provider claude --temperature 0.2  # More deterministic
 slcc --provider chatgpt --temperature 1.0  # More creative
+slcc --provider claude --temperature 0.2  # More deterministic
 ```
 
 ### Command-Line Options
@@ -95,11 +73,3 @@ Options:
 - Type your prompts and press Enter to send
 - Type `exit` or `quit` to end the conversation
 - Press Ctrl+C to interrupt the conversation
-
-## Extending the System
-
-To add a new LLM provider:
-
-1. Create a new provider class in `src/providers/` that inherits from `LLMProvider`
-2. Implement the required abstract methods: `send_message()` and `get_provider_name()`
-3. Register the provider in `src/config.py` in the `ProviderFactory.PROVIDERS` dictionary
