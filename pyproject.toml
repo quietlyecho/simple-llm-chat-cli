@@ -48,6 +48,3 @@ Issues = "https://github.com/quietlyecho/simple-llm-chat-cli/issues"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["src*"]
-
-[tool.setuptools.package-data]
-src = ["py.typed"]
