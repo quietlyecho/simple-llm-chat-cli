@@ -34,7 +34,7 @@ class LLMProvider(ABC):
         self.messages: List[Dict[str, Any]] = []
 
     @abstractmethod
-    def send_message(self, user_input: str, max_tokens: int = 1024, temperature: float = 0.5) -> str:
+    def send_message(self, user_input: str, max_tokens: int = 1024) -> str:
         """
         Send a message to the LLM and get a response.
 
@@ -44,9 +44,6 @@ class LLMProvider(ABC):
             The user's message.
         max_tokens : int, optional
             Maximum number of tokens in the response.
-        temperature : float, optional
-            Sampling temperature (0.0 to 1.0). Higher values make output more random.
-            Default is 0.5.
 
         Returns
         -------

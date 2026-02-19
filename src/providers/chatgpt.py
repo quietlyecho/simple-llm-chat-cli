@@ -10,6 +10,7 @@ from typing import Optional
 from openai import OpenAI
 
 from .base import LLMProvider
+from ..const import DEFAULT_CHATGPT_MODEL
 
 
 class ChatGPTProvider(LLMProvider):
@@ -17,21 +18,25 @@ class ChatGPTProvider(LLMProvider):
     ChatGPT provider implementation using OpenAI's API.
     """
 
-    def __init__(self, model: str = "gpt-5", api_key: Optional[str] = None):
+    def __init__(
+        self,
+        model: str = DEFAULT_CHATGPT_MODEL,
+        api_key: Optional[str] = None,
+    ):
         """
         Initialize the ChatGPT provider.
 
         Parameters
         ----------
         model : str, optional
-            The OpenAI model to use (default: "gpt-4o").
+            The OpenAI model to use.
         api_key : str, optional
             OpenAI API key. If None, reads from OPENAI_API_KEY environment variable.
         """
         super().__init__(model, api_key)
         self.client = OpenAI(api_key=api_key or os.environ.get("OPENAI_API_KEY"))
 
-    def send_message(self, user_input: str, max_tokens: int = 1024, temperature: float = 0.5) -> str:
+    def send_message(self, user_input: str, max_tokens: int) -> str:
         """
         Send a message to ChatGPT and get a response.
 
@@ -41,9 +46,6 @@ class ChatGPTProvider(LLMProvider):
             The user's message.
         max_tokens : int, optional
             Maximum number of tokens in the response.
-        temperature : float, optional
-            Sampling temperature (0.0 to 1.0). Higher values make output more random.
-            Default is 0.5.
 
         Returns
         -------
@@ -60,8 +62,7 @@ class ChatGPTProvider(LLMProvider):
         response = self.client.chat.completions.create(
             model=self.model,
             messages=self.messages,
-            max_tokens=max_tokens,
-            temperature=temperature
+            max_completion_tokens=max_tokens,
         )
 
         # Extract response content

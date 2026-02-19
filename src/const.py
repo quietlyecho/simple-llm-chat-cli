@@ -1,0 +1,2 @@
+DEFAULT_CHATGPT_MODEL = "gpt-5-mini-2025-08-07"
+DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-6"
