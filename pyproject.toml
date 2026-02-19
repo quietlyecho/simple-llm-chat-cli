@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "slcc" # stands for "simple llm chat cli"
-version = "0.1.0"
+version = "0.0.3"
 description = "A unified CLI interface for chatting with multiple LLM providers (ChatGPT, Claude)"
 readme = "README.md"
 requires-python = ">=3.8"
