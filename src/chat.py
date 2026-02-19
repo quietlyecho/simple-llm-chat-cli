@@ -15,7 +15,11 @@ from src.ui import ProcessSpinner
 EXIT_WORDS = ['exit', 'Exit', 'quit', 'Quit']
 
 
-def start_conversation(provider_name: str, model: str = None, max_tokens: int = 1024, temperature: float = 0.5):
+def start_conversation(
+    provider_name: str,
+    model: str | None,
+    max_tokens: int,
+):
     """
     Start an interactive conversation with the selected LLM provider.
 
@@ -26,10 +30,7 @@ def start_conversation(provider_name: str, model: str = None, max_tokens: int = 
     model : str, optional
         Model identifier. If None, uses the default model for the provider.
     max_tokens : int, optional
-        Maximum number of tokens in responses (default: 1024).
-    temperature : float, optional
-        Sampling temperature (0.0 to 1.0). Higher values make output more random.
-        Default is 0.5.
+        Maximum number of tokens in responses
     """
     try:
         # Create provider instance
@@ -67,7 +68,7 @@ def start_conversation(provider_name: str, model: str = None, max_tokens: int = 
 
             try:
                 # Get response from provider
-                response = provider.send_message(user_input, max_tokens, temperature)
+                response = provider.send_message(user_input, max_tokens)
 
                 # Stop spinner and display response
                 spinner.stop()
@@ -90,23 +91,21 @@ def start_conversation(provider_name: str, model: str = None, max_tokens: int = 
 def main():
     """Main function to handle command line arguments and start the chat."""
     parser = argparse.ArgumentParser(
-        description="Unified chat interface for LLM providers (ChatGPT, Claude)",
+        description="Unified chat interface for LLM providers",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  %(prog)s --provider chatgpt
-  %(prog)s --provider claude
-  %(prog)s --provider chatgpt --model gpt-4o
-  %(prog)s --provider claude --model claude-sonnet-4-20250514
-  %(prog)s -p chatgpt -m gpt-4o --max-tokens 2048 --temperature 0.7
+        Examples:
+          %(prog)s --provider chatgpt
+          %(prog)s --provider claude
+          %(prog)s --provider chatgpt --model gpt-5-mini
 
-Supported providers:
-  - chatgpt (default model: gpt-4o)
-  - claude (default model: claude-sonnet-4-20250514)
+        Supported providers:
+          - chatgpt
+          - claude
 
-Environment variables required:
-  - OPENAI_API_KEY for ChatGPT
-  - ANTHROPIC_API_KEY for Claude
+        Environment variables required:
+          - OPENAI_API_KEY for ChatGPT
+          - ANTHROPIC_API_KEY for Claude
         """
     )
 
@@ -128,15 +127,8 @@ Environment variables required:
     parser.add_argument(
         '--max-tokens',
         type=int,
-        default=1024,
-        help='Maximum tokens in response (default: 1024)'
-    )
-
-    parser.add_argument(
-        '--temperature',
-        type=float,
-        default=0.5,
-        help='Sampling temperature 0.0-1.0, higher is more random (default: 0.5)'
+        default=2048,
+        help="Maximum tokens in response",
     )
 
     args = parser.parse_args()
@@ -146,7 +138,6 @@ Environment variables required:
         provider_name=args.provider,
         model=args.model,
         max_tokens=args.max_tokens,
-        temperature=args.temperature
     )
 
 

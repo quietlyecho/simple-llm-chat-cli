@@ -6,8 +6,9 @@ LLM provider instances based on user choice.
 """
 
 from typing import Optional
-from .providers import LLMProvider, ChatGPTProvider, ClaudeProvider
 
+from .providers import LLMProvider, ChatGPTProvider, ClaudeProvider
+from .const import DEFAULT_CHATGPT_MODEL, DEFAULT_CLAUDE_MODEL
 
 class ProviderFactory:
     """
@@ -21,11 +22,11 @@ class ProviderFactory:
     PROVIDERS = {
         "chatgpt": {
             "class": ChatGPTProvider,
-            "default_model": "gpt-5"
+            "default_model": DEFAULT_CHATGPT_MODEL,
         },
         "claude": {
             "class": ClaudeProvider,
-            "default_model": "claude-sonnet-4-5-20250929" 
+            "default_model": DEFAULT_CLAUDE_MODEL,
         }
     }
 

@@ -40,20 +40,13 @@ slcc --provider claude
 
 Specify a custom model:
 ```bash
-slcc --provider chatgpt --model gpt-4o
-slcc --provider claude --model claude-sonnet-4
+slcc --provider chatgpt --model gpt-5-mini
+slcc --provider claude --model claude-sonnet-4-5
 ```
 
 Adjust maximum tokens:
 ```bash
 slcc --provider chatgpt --max-tokens 2048
-```
-
-Adjust temperature (randomness):
-```bash
-slcc --provider chatgpt --temperature 0.7
-slcc --provider chatgpt --temperature 1.0  # More creative
-slcc --provider claude --temperature 0.2  # More deterministic
 ```
 
 ### Command-Line Options
@@ -66,7 +59,6 @@ Options:
 - `-p, --provider` (required): Choose provider (`chatgpt` or `claude`)
 - `-m, --model` (optional): Specify model name (uses provider default if not specified)
 - `--max-tokens` (optional): Maximum tokens in response (default: 1024)
-- `--temperature` (optional): Sampling temperature 0.0-1.0, higher is more random (default: 0.5)
 
 ### During Conversation
 

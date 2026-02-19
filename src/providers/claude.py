@@ -10,6 +10,7 @@ from typing import Optional
 import anthropic
 
 from .base import LLMProvider
+from ..const import DEFAULT_CLAUDE_MODEL 
 
 
 class ClaudeProvider(LLMProvider):
@@ -17,21 +18,21 @@ class ClaudeProvider(LLMProvider):
     Claude provider implementation using Anthropic's API.
     """
 
-    def __init__(self, model: str = "claude-sonnet-4-5", api_key: Optional[str] = None):
+    def __init__(self, model: str = DEFAULT_CLAUDE_MODEL, api_key: Optional[str] = None):
         """
         Initialize the Claude provider.
 
         Parameters
         ----------
         model : str, optional
-            The Claude model to use (default: "claude-sonnet-4-20250514").
+            The Claude model to use
         api_key : str, optional
             Anthropic API key. If None, reads from ANTHROPIC_API_KEY environment variable.
         """
         super().__init__(model, api_key)
         self.client = anthropic.Anthropic(api_key=api_key or os.environ.get("ANTHROPIC_API_KEY"))
 
-    def send_message(self, user_input: str, max_tokens: int = 1024, temperature: float = 0.5) -> str:
+    def send_message(self, user_input: str, max_tokens: int) -> str:
         """
         Send a message to Claude and get a response.
 
@@ -41,9 +42,6 @@ class ClaudeProvider(LLMProvider):
             The user's message.
         max_tokens : int, optional
             Maximum number of tokens in the response.
-        temperature : float, optional
-            Sampling temperature (0.0 to 1.0). Higher values make output more random.
-            Default is 0.5.
 
         Returns
         -------
@@ -60,7 +58,6 @@ class ClaudeProvider(LLMProvider):
         response = self.client.messages.create(
             model=self.model,
             max_tokens=max_tokens,
-            temperature=temperature,
             messages=self.messages
         )
 
